@@ -13,7 +13,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort'
 import { MatDialogModule } from '@angular/material/dialog';
-import { DialogActivityComponent } from './dialog-activity/dialog-activity.component'
+import { DialogActivityComponent } from './dialog-activity/dialog-activity.component';
+import { ContactDetailsComponent } from './contact-details/contact-details.component';
+import { ActivitiesComponent } from './activities/activities.component';
+import { ActivityDetailsComponent } from './activity-details/activity-details.component'
 
 
 @NgModule({
@@ -22,7 +25,10 @@ import { DialogActivityComponent } from './dialog-activity/dialog-activity.compo
     ContactsComponent,
     ActivityComponent,
     DataTableComponent,
-    DialogActivityComponent
+    DialogActivityComponent,
+    ContactDetailsComponent,
+    ActivitiesComponent,
+    ActivityDetailsComponent
   ],
   entryComponents: [
     DialogActivityComponent
