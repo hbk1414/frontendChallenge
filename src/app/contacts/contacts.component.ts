@@ -73,43 +73,43 @@ export class ContactsComponent implements OnInit {
     });
   }
 
-  //save function
-  saveContact(): void {
-    console.log(this.fg);
-    //if form don't have any validation error this if condition will executed
-    if (this.fg.valid) {
-      const index = this.contacts.findIndex(
-        (item) => item.id === this.fg.value.id
-      );
-      console.log(index);
-      if (index != -1) {
-        this.contacts[index].firstName = this.fg.value.firstName;
-        this.contacts[index].lastName = this.fg.value.lastName;
-        this.contacts[index].email = this.fg.value.email;
-        this.contacts[index].address1 = this.fg.value.address1;
-        this.contacts[index].address2 = this.fg.value.address2;
-        this.contacts[index].city = this.fg.value.city;
-        this.contacts[index].zipCode = this.fg.value.zipCode;
-      } else {
-        this.contacts.push(this.fg.value); //put the form value into contact array
-      }
-      this.fg.reset(); //resetting the form array
-    }
-  }
+  // //save function
+  // saveContact(): void {
+  //   console.log(this.fg);
+  //   //if form don't have any validation error this if condition will executed
+  //   if (this.fg.valid) {
+  //     const index = this.contacts.findIndex(
+  //       (item) => item.id === this.fg.value.id
+  //     );
+  //     console.log(index);
+  //     if (index != -1) {
+  //       this.contacts[index].firstName = this.fg.value.firstName;
+  //       this.contacts[index].lastName = this.fg.value.lastName;
+  //       this.contacts[index].email = this.fg.value.email;
+  //       this.contacts[index].address1 = this.fg.value.address1;
+  //       this.contacts[index].address2 = this.fg.value.address2;
+  //       this.contacts[index].city = this.fg.value.city;
+  //       this.contacts[index].zipCode = this.fg.value.zipCode;
+  //     } else {
+  //       this.contacts.push(this.fg.value); //put the form value into contact array
+  //     }
+  //     this.fg.reset(); //resetting the form array
+  //   }
+  // }
 
-  clear() {
-    this.fg.reset()
-  }
+  // clear() {
+  //   this.fg.reset()
+  // }
 
-  edit(index: number): void {
-    const data = this.contacts[index]
-    this.fg.patchValue(data)
-    this.update = true
-    this.save = false
-  }
-  delete(index: number): void {
-    this.contacts.splice(index, 1)
-  }
+  // edit(index: number): void {
+  //   const data = this.contacts[index]
+  //   this.fg.patchValue(data)
+  //   this.update = true
+  //   this.save = false
+  // }
+  // delete(index: number): void {
+  //   this.contacts.splice(index, 1)
+  // }
 
 
 
