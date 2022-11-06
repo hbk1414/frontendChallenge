@@ -30,6 +30,28 @@ export class AppService {
   deleteContact(id: number | undefined) {
     return this.http.delete(`${this.rootURL}/contacts/${id}`);
   }
+  getActivityTypes() {
+    return this.http.get(this.rootURL + '/activities/types');
+  }
+
+  addActivity(activity: any) {
+    return this.http.post(this.rootURL + '/activities', activity);
+  }
+
+
+  editActivity(id: string, activity: any) {
+    return this.http.put(`${this.rootURL}/activities/${id}`, activity);
+  }
+
+  deleteActivity(id: number | undefined) {
+    return this.http.delete(`${this.rootURL}/activities/${id}`);
+  }
+  getActivities() {
+    return this.http.get(this.rootURL + '/activities');
+  }
+  getActivitybyID(id: number | undefined) {
+    return this.http.get(`${this.rootURL}/activities/${id}`);
+  }
 
 
 

@@ -25,8 +25,7 @@ export class ContactDetailsComponent implements OnInit {
   fg!: FormGroup;
   contacts: Contact[] = []
   contact: any = undefined
-  update: boolean = false
-  save: boolean = true
+
 
   //get the form field as a form control. it will useful for validation and etc
   get firstNameField(): FormControl {
@@ -57,6 +56,7 @@ export class ContactDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.getContacts();
+
   }
 
   //form init. here we create the reactive form. https://angular.io/guide/reactive-forms
@@ -95,7 +95,7 @@ export class ContactDetailsComponent implements OnInit {
         postCode: this.fg.value.postCode
 
       };
-      if (this.contact.id) {
+      if (this.contact?.id) {
         this.appService
           .editContacts(this.contact.id, newContact)
 
@@ -120,19 +120,16 @@ export class ContactDetailsComponent implements OnInit {
       .subscribe((contact: any) => (this.contacts = contact));
   }
 
-  clear() {
-    this.fg.reset()
-  }
 
   edit(index: number): void {
     const data = this.contacts[index]
     this.fg.patchValue(data)
-    this.update = true
-    this.save = false
+    // this.update = true
+    // this.save = false
   }
-  delete(index: number): void {
-    this.contacts.splice(index, 1)
-  }
+  // delete(index: number): void {
+  //   this.contacts.splice(index, 1)
+  // }
 
   getContact(id: number | undefined) {
     this.appService.get(id)
@@ -144,6 +141,7 @@ export class ContactDetailsComponent implements OnInit {
       .subscribe()
     this.getContacts()
   }
+  
 
 
 

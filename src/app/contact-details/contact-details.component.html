@@ -15,26 +15,19 @@
     <div class="form">
 
         <form [formGroup]="fg">
-            <input type="text" class="form-control" [(ngModel)]="contact.firstName" formControlName="firstName"
-                placeholder="First Name" />
+            <input type="text" class="form-control" formControlName="firstName" placeholder="First Name" />
 
-            <input type="text" class="form-control" [(ngModel)]="contact.lastName" formControlName="lastName"
-                placeholder="Last Name" />
+            <input type="text" class="form-control" formControlName="lastName" placeholder="Last Name" />
 
-            <input type="email" class="form-control" [(ngModel)]="contact.emailAddress" formControlName="emailAddress"
-                placeholder="Email" />
+            <input type="email" class="form-control" formControlName="emailAddress" placeholder="Email" />
 
-            <input type="text" class="form-control" [(ngModel)]="contact.address1" formControlName="address1"
-                placeholder="Address1" />
+            <input type="text" class="form-control" formControlName="address1" placeholder="Address1" />
 
-            <input type="text" class="form-control" [(ngModel)]="contact.address2" formControlName="address2"
-                placeholder="Address2" />
+            <input type="text" class="form-control" formControlName="address2" placeholder="Address2" />
 
-            <input type="text" class="form-control" [(ngModel)]="contact.city" formControlName="city"
-                placeholder="City" />
+            <input type="text" class="form-control" formControlName="city" placeholder="City" />
 
-            <input type="text" class="form-control" [(ngModel)]="contact.postCode" formControlName="postCode"
-                placeholder="Post Code" />
+            <input type="text" class="form-control" formControlName="postCode" placeholder="Post Code" />
 
             <button (click)="saveContact()">Edit/Save</button>
             <button (click)="deleteContact(contact.id)">Delete</button>

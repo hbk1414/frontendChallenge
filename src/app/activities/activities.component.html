@@ -1,1 +1,36 @@
 <p>activities works!</p>
+
+<div class="container">
+
+    <div class="main">
+        <label for="name" class="nameLbl">Activity</label>
+        <li *ngFor="let activity of activities; let i = index" (click)="getActivity(activity.id)">
+            {{activity.title}}
+        </li>
+    </div>
+
+
+    <div class="form">
+
+        <form [formGroup]="fg">
+            <select formControlName="contact" class="form-control">
+                <option>Choose Contact</option>
+                <option *ngFor="let contact of contacts" [value]="contact.id">{{contact.firstName}}</option>
+            </select>
+            <select formControlName="type" class="form-control">
+                <option>Choose type</option>
+                <option *ngFor="let type of types" [value]="type.id">{{type.type}}</option>
+            </select>
+
+            <input type="date" class="form-control" formControlName="dueDate" placeholder="Email" />
+
+            <input type="text" class="form-control" formControlName="title" placeholder="Subject" />
+
+            <input type="text" class="form-control" formControlName="notes" placeholder="notes" />
+
+            <button (click)="saveActivity()">Edit/Save</button>
+            <button (click)="deleteActivity(activity.id)">Delete</button>
+        </form>
+
+
+    </div>
