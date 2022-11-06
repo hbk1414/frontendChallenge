@@ -52,6 +52,9 @@ export class AppService {
   getActivitybyID(id: number | undefined) {
     return this.http.get(`${this.rootURL}/activities/${id}`);
   }
+  getContactActivitiesbyContactID(id: number | undefined) {
+    return this.http.get(`${this.rootURL}/contacts/${id}/activites`);
+  }
 
 
 
