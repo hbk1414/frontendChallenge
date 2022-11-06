@@ -13,20 +13,23 @@
     <div class="form">
 
         <form [formGroup]="fg">
-            <select formControlName="contact" class="form-control">
+            <select formControlName="contact" [(ngModel)]="activity.contact" class="form-control">
                 <option>Choose Contact</option>
                 <option *ngFor="let contact of contacts" [value]="contact.id">{{contact.firstName}}</option>
             </select>
-            <select formControlName="type" class="form-control">
+            <select formControlName="type" [(ngModel)]="activity.type" class="form-control">
                 <option>Choose type</option>
                 <option *ngFor="let type of types" [value]="type.id">{{type.type}}</option>
             </select>
 
-            <input type="date" class="form-control" formControlName="dueDate" placeholder="Email" />
+            <input type="date" [(ngModel)]="activity.dueDate" class="form-control" formControlName="dueDate"
+                placeholder="Email" />
 
-            <input type="text" class="form-control" formControlName="title" placeholder="Subject" />
+            <input type="text" [(ngModel)]="activity.title" class="form-control" formControlName="title"
+                placeholder="Subject" />
 
-            <input type="text" class="form-control" formControlName="notes" placeholder="notes" />
+            <input type="text" [(ngModel)]="activity.notes" class="form-control" formControlName="notes"
+                placeholder="notes" />
 
             <button (click)="saveActivity()">Edit/Save</button>
             <button (click)="deleteActivity(activity.id)">Delete</button>
