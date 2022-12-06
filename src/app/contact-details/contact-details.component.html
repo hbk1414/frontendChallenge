@@ -1,66 +1,53 @@
 <div class="container">
 
-
-
-    <div class="main">
-        <label for="name" class="nameLbl">Name</label>
-        <li *ngFor="let contact of contacts; let i = index" (click)="getContact(contact.id)">
-            {{contact.firstName}} {{contact.lastName}}
-
+    <div class="main-contact-list">
+        <h2>Contacts</h2>
+        <li *ngFor="let contact of contacts;">
+            <button type="button" (click)="getContact(contact.id)">
+                <span class="name"> {{contact.firstName}} {{contact.lastName}}</span>
+            </button>
         </li>
     </div>
 
-
     <div class="form">
-
         <form [formGroup]="fg">
-            <input type="text" class="form-control" [(ngModel)]="contact.firstName" name="firstName"
-                formControlName="firstName" placeholder="First Name" />
+            <div class="actionBtns">
+                <button class="btn btn-primary" (click)="saveContact()">Edit/Save</button>
+                <div class="divider"></div>
+                <button class="btn btn-primary" (click)="deleteContact(contact.id)">Delete</button>
+            </div>
 
-            <input type="text" class="form-control" [(ngModel)]="contact.lastName" name="lastName"
-                formControlName="lastName" placeholder="Last Name" />
 
-            <input type="email" class="form-control" [(ngModel)]="contact.emailAddress" name="emailAddress"
-                FormControlName="emailAddress" placeholder="Email" />
+            <div class="row" class="row-object">
+                <input type="text" class="form-control" [(ngModel)]="contact.firstName" name="firstName"
+                    formControlName="firstName" placeholder="First Name" />
 
-            <input type="text" class="form-control" [(ngModel)]="contact.address1" name="address1"
-                formControlName="address1" placeholder="Address1" />
+                <div class="divider"></div>
 
-            <input type="text" class="form-control" [(ngModel)]="contact.address2" name="address2"
-                formControlName="address2" placeholder="Address2" />
+                <input type="text" class="form-control" [(ngModel)]="contact.lastName" name="lastName"
+                    formControlName="lastName" placeholder="Last Name" />
 
-            <input type="text" class="form-control" [(ngModel)]="contact.city" name="city" formControlName="city"
-                placeholder="City" />
-
-            <input type="text" class="form-control" [(ngModel)]="contact.postCode" name="postCode"
-                formControlName="postCode" placeholder="Post Code" />
-
-            <button (click)="saveContact()">Edit/Save</button>
-            <button (click)="deleteContact(contact.id)">Delete</button>
+                <div class="col">
+                    <input type="text" class="form-control" [(ngModel)]="contact.emailAddress" name="emailAddress"
+                        formControlName="emailAddress" placeholder="Email Address" />
+                    <div class="divider"></div>
+                    <input type="text" class="form-control" [(ngModel)]="contact.address1" name="address1"
+                        formControlName="address1" placeholder="Address1" />
+                    <div class="divider"></div>
+                    <input type="text" class="form-control" [(ngModel)]="contact.address2" name="address2"
+                        formControlName="address2" placeholder="Address2" />
+                    <div class="divider"></div>
+                    <input type="text" class="form-control" [(ngModel)]="contact.city" name="city"
+                        formControlName="city" placeholder="City" />
+                    <div class="divider"></div>
+                    <input type="text" class="form-control" [(ngModel)]="contact.postCode" name="postCode"
+                        formControlName="postCode" placeholder="Post Code" />
+                    <div class="divider"></div>
+                </div>
+            </div>
         </form>
 
-        <!-- <div class="form">
-
-        <form [formGroup]="fg">
-            <input type="text" class="form-control" formControlName="firstName" placeholder="First Name" />
-
-            <input type="text" class="form-control" formControlName="lastName" placeholder="Last Name" />
-
-            <input type="email" class="form-control" formControlName="emailAddress" placeholder="Email" />
-
-            <input type="text" class="form-control" formControlName="address1" placeholder="Address1" />
-
-            <input type="text" class="form-control" formControlName="address2" placeholder="Address2" />
-
-            <input type="text" class="form-control" formControlName="city" placeholder="City" />
-
-            <input type="text" class="form-control" formControlName="postCode" placeholder="Post Code" />
-
-            <button (click)="saveContact()">Edit/Save</button>
-            <button (click)="deleteContact(contact.id)">Delete</button>
-        </form> -->
-
-        <div class="activityForm">
-            <app-activities></app-activities>
+        <div class="activityForm" *ngIf="contact.id">
+            <app-activities [childItem]="contact"></app-activities>
         </div>
     </div>

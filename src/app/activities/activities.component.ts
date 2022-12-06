@@ -1,41 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { AppService } from '../app.service';
-
-
 
 interface Activity {
   id?: number;
-  contact: string;
-  type: string;
+  contactId: string;
+  activityTypeId: string;
   dueDate: number;
   title: string;
   notes: string;
-
 }
 
 @Component({
   selector: 'app-activities',
   templateUrl: './activities.component.html',
-  styleUrls: ['./activities.component.css']
+  styleUrls: ['./activities.component.css'],
 })
-
-
 export default class ActivitiesComponent implements OnInit {
   constructor(private appService: AppService, private fb: FormBuilder) { }
-  fg!: FormGroup
-  contacts: any[] = []
-  types: any[] = []
-  activities: Activity[] = []
-  activity: any = undefined
-
+  fg!: FormGroup;
+  contacts: any[] = [];
+  types: any[] = [];
+  fullName: string = '';
+  activities: any[] = [];
+  activity: any = {};
+  @Input() childItem: any = {};
 
   //get the form field as a form control. it will useful for validation and etc
   // get contactield(): FormControl {
-  //   return this.fg.get('firstName') as FormControl;
+  // return this.fg.get('firstName') as FormControl;
   // }
   get contactField(): FormControl {
-    return this.fg.get('contact') as FormControl;
+    return this.fg.get('contactId') as FormControl;
   }
 
   get typeField(): FormControl {
@@ -61,17 +63,19 @@ export default class ActivitiesComponent implements OnInit {
     this.getActivities();
   }
 
+  refresh(): void {
+    window.location.reload();
+  }
 
   initForm(): void {
     let id = Date.now() * Math.random();
     this.fg = this.fb.group({
       id: [id],
-      contact: ['', [Validators.required]],
-      type: ['', [Validators.required]],
+      contactId: ['', [Validators.required]],
+      activityTypeId: ['', [Validators.required]],
       dueDate: ['', [Validators.required]],
       title: ['', [Validators.required]],
       notes: ['', [Validators.required]],
-
     });
   }
   saveActivity(): void {
@@ -80,24 +84,18 @@ export default class ActivitiesComponent implements OnInit {
 
     //if form don't have any validation error this if condition will executed
     if (this.fg.valid) {
-      const index = this.activities.findIndex(
-        (item) => item.id === this.fg.value.id
-      );
-      console.log(index);
+
       const newActivity: Activity = {
-        contact: this.fg.value.contact,
-        type: this.fg.value.type,
+        contactId: this.fg.value.contactId,
+        activityTypeId: this.fg.value.activityTypeId,
         dueDate: this.fg.value.dueDate,
         title: this.fg.value.title,
-        notes: this.fg.value.notes
-
+        notes: this.fg.value.notes,
       };
       if (this.activity?.id) {
         this.appService
           .editActivity(this.activity.id, newActivity)
-
           .subscribe((activity: any) => this.activity.push(activity));
-
       } else {
         this.appService
           .addActivity(newActivity)
@@ -105,33 +103,49 @@ export default class ActivitiesComponent implements OnInit {
           .subscribe((activity: any) => this.activity.push(activity));
       }
       this.fg.reset(); //resetting the form array
-      this.getActivities();
+      this.refresh();
     } else {
-      console.log("this is invalid ");
-
+      console.log('this is invalid ');
     }
   }
   getContacts(): void {
-    this.appService.getContacts()
+    this.appService
+      .getContacts()
       .subscribe((contact: any) => (this.contacts = contact));
   }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['childItem']) {
+      this.getContactActivitiesbyContactID(changes['childItem'].currentValue.id)
+      this.getActivity(changes['childItem'].currentValue.id);
+    }
+  }
   getActivities(): void {
-    this.appService.getActivities()
+    console.log(this.childItem);
+    if (this.childItem.id) {
+      this.getContactActivitiesbyContactID(this.childItem.id);
+    }
+    this.appService
+      .getActivities()
+      .subscribe((activity: any) => (this.activities = activity));
+  }
+  getContactActivitiesbyContactID(id: number | undefined) {
+    this.appService
+      .getContactActivitiesbyContactID(id)
       .subscribe((activity: any) => (this.activities = activity));
   }
   getActivityTypes(): void {
-    this.appService.getActivityTypes()
+    this.appService
+      .getActivityTypes()
       .subscribe((actitivityType: any) => (this.types = actitivityType));
   }
   deleteActivity(id: number | undefined) {
-    this.appService.deleteActivity(id)
-      .subscribe()
-    this.getActivities()
+    this.appService.deleteActivity(id).subscribe();
+    this.refresh();
   }
   getActivity(id: number | undefined) {
-    this.appService.getActivitybyID(id)
-      .subscribe((activity: any) => (this.activity = activity))
+    this.appService
+      .getActivitybyID(id)
+      .subscribe((activity: any) => (this.activity = activity));
   }
-
 }
-

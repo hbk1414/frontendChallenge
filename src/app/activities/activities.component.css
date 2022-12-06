@@ -1,0 +1,71 @@
+.container{
+    display: flex;
+    border: 1px solid;
+    border-color: aqua;
+    gap: 25%;
+    height: 75%;
+}
+.main{
+    padding: 20px;
+    width: 20%;
+    margin: 5px 5px;
+}
+.formDetails{
+    left: 0;
+    position: relative;
+    right: 0;
+    width: 80%;
+    max-width: 600px;
+    margin: auto;
+    margin-top: 50px;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 20px; */
+}
+input,textarea{
+  display: inline-block;
+  box-sizing:border-box;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 10px;
+  padding-left: 10px;
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+  border-top-color: #d9d9d9;
+  border-right-color: #d9d9d9;
+  border-bottom-color: #d9d9d9;
+  border-left-color: #d9d9d9;
+  border-top-style: dotted;
+  border-right-style: dotted;
+  border-bottom-style: dotted;
+  border-left-style: dotted;
+  background-color: #efefef;
+  line-height: 1.38;
+  color: #444444;
+}
+.actionBtns{
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.divider{
+    width:5px;
+    height:auto;
+    display:inline-block;
+}
+input[type=text]{
+    height: 80px;
+	margin-top: 32px;
+}
+textarea {
+	height: 150px;
+	margin-top: 32px;
+}
+input[type=date]{
+    padding-top: 10px;
+}

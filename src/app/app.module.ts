@@ -16,8 +16,6 @@ import { MatSortModule } from '@angular/material/sort'
 import { MatDialogModule } from '@angular/material/dialog';
 import { ContactDetailsComponent } from './contact-details/contact-details.component';
 import ActivitiesComponent from './activities/activities.component';
-import { ActivityDetailsComponent } from './activity-details/activity-details.component';
-import { ContactActivitiesComponent } from './contact-activities/contact-activities.component'
 
 
 
@@ -27,8 +25,6 @@ import { ContactActivitiesComponent } from './contact-activities/contact-activit
     ContactsComponent,
     ActivitiesComponent,
     ContactDetailsComponent,
-    ActivityDetailsComponent,
-    ContactActivitiesComponent
   ],
   imports: [
     BrowserModule,

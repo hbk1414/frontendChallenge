@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+  FormsModule
+} from '@angular/forms';
+import { Router } from '@angular/router';
 import { AppService } from '../app.service';
-
 
 //interface for Contact
 interface Contact {
@@ -18,14 +24,14 @@ interface Contact {
 @Component({
   selector: 'app-contact-details',
   templateUrl: './contact-details.component.html',
-  styleUrls: ['./contact-details.component.css']
+  styleUrls: ['./contact-details.component.css'],
 })
 export class ContactDetailsComponent implements OnInit {
-  constructor(private appService: AppService, private fb: FormBuilder) { }
+  router: any;
+  constructor(private appService: AppService, private fb: FormBuilder, router: Router) { }
   fg!: FormGroup;
-  contacts: Contact[] = []
-  contact: any = undefined
-
+  contacts: Contact[] = [];
+  contact: any = {};
 
   //get the form field as a form control. it will useful for validation and etc
   get firstNameField(): FormControl {
@@ -52,11 +58,9 @@ export class ContactDetailsComponent implements OnInit {
     return this.fg.get('postCode') as FormControl;
   }
 
-
-  ngOnInit(): void {
+  async ngOnInit() {
     this.initForm();
     this.getContacts();
-
   }
 
   //form init. here we create the reactive form. https://angular.io/guide/reactive-forms
@@ -75,16 +79,13 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   //save function
-  saveContact(): void {
+  async saveContact() {
     console.log(this.fg);
     console.log(this.contact);
 
-    //if form don't have any validation error this if condition will executed
+    //if form doesn't have any validation error this if condition will executed
     if (this.fg.valid) {
-      const index = this.contacts.findIndex(
-        (item) => item.id === this.fg.value.id
-      );
-      console.log(index);
+
       const newContact: Contact = {
         firstName: this.fg.value.firstName,
         lastName: this.fg.value.lastName,
@@ -92,57 +93,54 @@ export class ContactDetailsComponent implements OnInit {
         address1: this.fg.value.address1,
         address2: this.fg.value.address2,
         city: this.fg.value.city,
-        postCode: this.fg.value.postCode
-
+        postCode: this.fg.value.postCode,
       };
       if (this.contact?.id) {
         this.appService
-          .editContacts(this.contact.id, newContact)
-
-          .subscribe((contact: any) => this.contacts.push(contact));
-
+          .editContacts(this.contact.id, newContact).subscribe();
       } else {
         this.appService
-          .addContacts(newContact)
-
-          .subscribe((contact: any) => this.contacts.push(contact));
+          .addContacts(newContact).subscribe();
       }
       this.fg.reset(); //resetting the form array
-      this.getContacts();
+      await this.refresh();
     } else {
-      console.log("this is invalid ");
-
+      console.log('this is invalid ');
     }
   }
 
-  getContacts(): void {
-    this.appService.getContacts()
-      .subscribe((contact: any) => (this.contacts = contact));
-  }
-
-
-  edit(index: number): void {
-    const data = this.contacts[index]
-    this.fg.patchValue(data)
-    // this.update = true
-    // this.save = false
-  }
-  // delete(index: number): void {
-  //   this.contacts.splice(index, 1)
+  // refresh() {
+  //   this.router.navigate([this.router.url])
   // }
 
+  refresh(): void {
+    window.location.reload();
+  }
+
+  async getContacts(): Promise<void> {
+    await this.appService
+      .getContacts()
+      .subscribe((contacts: any) => (this.contacts = contacts));
+  }
+
+  edit(id: number): void {
+    const data = this.contacts[id];
+    this.fg.patchValue(data);
+    this.refresh();
+  }
+
   getContact(id: number | undefined) {
-    this.appService.get(id)
-      .subscribe((contact: any) => (this.contact = contact))
+    this.appService
+      .get(id)
+      .subscribe((contact: any) => (this.contact = contact));
+  }
+
+  selectContact(contact: Contact) {
+    this.contact = contact;
   }
 
   deleteContact(id: number | undefined) {
-    this.appService.deleteContact(id)
-      .subscribe()
-    this.getContacts()
+    this.appService.deleteContact(id).subscribe();
+    this.refresh();
   }
-  
-
-
-
 }
