@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppService } from '../app.service';
+import { nameValidator } from '../../app/validator/nameValidator';
 
 //interface for Contact
 interface Contact {
@@ -68,8 +69,8 @@ export class ContactDetailsComponent implements OnInit {
     let id = Date.now() * Math.random();
     this.fg = this.fb.group({
       id: [id],
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
+      firstName: ['', [Validators.required, nameValidator()]],
+      lastName: ['', [Validators.required, nameValidator()]],
       emailAddress: ['', [Validators.required, Validators.email]],
       address1: ['', [Validators.required]],
       address2: ['', [Validators.required]],
