@@ -1,3 +1,19 @@
-nav{
-    display: inline;
+a:hover {
+    color: hotpink;
 }
+
+.row{
+    margin-left: 50px;
+}
+  ul#list{
+    list-style-type: none;
+}
+a:link {
+    text-decoration: none;
+    margin: 10px 10px;
+}
+.button-box{
+text-align:center;
+   display: inline;
+}
+

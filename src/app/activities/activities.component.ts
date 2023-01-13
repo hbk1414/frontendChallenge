@@ -25,11 +25,11 @@ interface Activity {
 export default class ActivitiesComponent implements OnInit {
   constructor(private appService: AppService, private fb: FormBuilder) { }
   fg!: FormGroup;
-  contacts: any[] = [];
-  types: any[] = [];
-  fullName: string = '';
-  activities: any[] = [];
-  activity: any = {};
+  @Input() contacts: any[] = [];
+  @Input() types: any[] = [];
+  @Input() fullName: string = '';
+  @Input() activities: any[] = [];
+  @Input() activity: any = {};
   @Input() childItem: any = {};
 
   //get the form field as a form control. it will useful for validation and etc
@@ -63,9 +63,6 @@ export default class ActivitiesComponent implements OnInit {
     this.getActivities();
   }
 
-  refresh(): void {
-    window.location.reload();
-  }
 
   initForm(): void {
     let id = Date.now() * Math.random();
@@ -95,15 +92,17 @@ export default class ActivitiesComponent implements OnInit {
       if (this.activity?.id) {
         this.appService
           .editActivity(this.activity.id, newActivity)
-          .subscribe((activity: any) => this.activity.push(activity));
+          .subscribe((activity: any) => {
+            this.activities = this.activities.filter(activity => activity.id !== this.activity.id);
+            this.activities.push(activity);
+          });
       } else {
         this.appService
           .addActivity(newActivity)
 
-          .subscribe((activity: any) => this.activity.push(activity));
+          .subscribe((activity: any) => this.activities.push(activity));
       }
       this.fg.reset(); //resetting the form array
-      this.refresh();
     } else {
       console.log('this is invalid ');
     }
@@ -111,13 +110,14 @@ export default class ActivitiesComponent implements OnInit {
   getContacts(): void {
     this.appService
       .getContacts()
-      .subscribe((contact: any) => (this.contacts = contact));
+      .subscribe((contacts: any) => (this.contacts = contacts));
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['childItem']) {
       this.getContactActivitiesbyContactID(changes['childItem'].currentValue.id)
       this.getActivity(changes['childItem'].currentValue.id);
+      this.getContacts();
     }
   }
   getActivities(): void {
@@ -127,12 +127,12 @@ export default class ActivitiesComponent implements OnInit {
     }
     this.appService
       .getActivities()
-      .subscribe((activity: any) => (this.activities = activity));
+      .subscribe((activities: any) => (this.activities = activities));
   }
   getContactActivitiesbyContactID(id: number | undefined) {
     this.appService
       .getContactActivitiesbyContactID(id)
-      .subscribe((activity: any) => (this.activities = activity));
+      .subscribe((activities: any) => (this.activities = activities));
   }
   getActivityTypes(): void {
     this.appService
@@ -141,7 +141,9 @@ export default class ActivitiesComponent implements OnInit {
   }
   deleteActivity(id: number | undefined) {
     this.appService.deleteActivity(id).subscribe();
-    this.refresh();
+    this.activities = this.activities.filter(activity => activity.id !== id);
+    this.activity = null;
+    this.fg.reset();
   }
   getActivity(id: number | undefined) {
     this.appService

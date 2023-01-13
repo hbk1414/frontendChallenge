@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -9,6 +9,7 @@ import {
 import { Router } from '@angular/router';
 import { AppService } from '../app.service';
 import { nameValidator } from '../../app/validator/nameValidator';
+import { postCodeValidator } from '../../app/validator/postCodeValidator'
 
 //interface for Contact
 interface Contact {
@@ -20,7 +21,10 @@ interface Contact {
   address2: string;
   city: string;
   postCode: string;
+  phoneNumber: string;
 }
+
+declare var window: any;
 
 @Component({
   selector: 'app-contact-details',
@@ -28,11 +32,14 @@ interface Contact {
   styleUrls: ['./contact-details.component.css'],
 })
 export class ContactDetailsComponent implements OnInit {
+
+  formModal: any
+
   router: any;
   constructor(private appService: AppService, private fb: FormBuilder, router: Router) { }
   fg!: FormGroup;
-  contacts: Contact[] = [];
-  contact: any = {};
+  @Input() contacts: Contact[] = [];
+  @Input() contact: any = {};
 
   //get the form field as a form control. it will useful for validation and etc
   get firstNameField(): FormControl {
@@ -58,10 +65,20 @@ export class ContactDetailsComponent implements OnInit {
   get postCodeField(): FormControl {
     return this.fg.get('postCode') as FormControl;
   }
+  get phoneNumberField(): FormControl {
+    return this.fg.get('phoneNumber') as FormControl;
+  }
 
   async ngOnInit() {
     this.initForm();
     this.getContacts();
+    this.formModal = new window.bootstrap.Modal(
+      document.getElementById("exampleModal")
+    )
+  }
+
+  openModal() {
+    this.formModal.show()
   }
 
   //form init. here we create the reactive form. https://angular.io/guide/reactive-forms
@@ -75,7 +92,8 @@ export class ContactDetailsComponent implements OnInit {
       address1: ['', [Validators.required]],
       address2: ['', [Validators.required]],
       city: ['', [Validators.required]],
-      postCode: ['', [Validators.required]],
+      postCode: ['', [Validators.required, postCodeValidator()]],
+
     });
   }
 
@@ -95,27 +113,22 @@ export class ContactDetailsComponent implements OnInit {
         address2: this.fg.value.address2,
         city: this.fg.value.city,
         postCode: this.fg.value.postCode,
+        phoneNumber: this.fg.value.phoneNumber,
       };
       if (this.contact?.id) {
         this.appService
-          .editContacts(this.contact.id, newContact).subscribe();
+          .editContacts(this.contact.id, newContact).subscribe((contact: any) => {
+            this.contacts = this.contacts.filter(contact => contact.id !== this.contact.id);
+            this.contacts.push(contact);
+          });
       } else {
         this.appService
-          .addContacts(newContact).subscribe();
+          .addContacts(newContact).subscribe((contact: any) => (this.contacts.push(contact)));
       }
       this.fg.reset(); //resetting the form array
-      await this.refresh();
     } else {
       console.log('this is invalid ');
     }
-  }
-
-  // refresh() {
-  //   this.router.navigate([this.router.url])
-  // }
-
-  refresh(): void {
-    window.location.reload();
   }
 
   async getContacts(): Promise<void> {
@@ -127,7 +140,6 @@ export class ContactDetailsComponent implements OnInit {
   edit(id: number): void {
     const data = this.contacts[id];
     this.fg.patchValue(data);
-    this.refresh();
   }
 
   getContact(id: number | undefined) {
@@ -142,6 +154,8 @@ export class ContactDetailsComponent implements OnInit {
 
   deleteContact(id: number | undefined) {
     this.appService.deleteContact(id).subscribe();
-    this.refresh();
+    this.contacts = this.contacts.filter(contact => contact.id !== id);
+    this.contact = null;
+    this.fg.reset();
   }
 }

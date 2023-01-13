@@ -1,13 +1,58 @@
-.container{
-    display: flex;
+.actionBtns{
+    padding: 20px;
+}
+.btn{
+    margin-right: 5px;
+}
+.main-contact-list{
     border: 1px solid;
-    border-color: aqua;
+
+}
+.mainForm{
+    border: 1px solid;
+    padding-top: 10px;
+    height: 100%;
+    width: 100%;
+}
+.textArea{
+    padding-left: 30px;
+    padding-bottom: 20px;
+}
+.contactFields{
+    padding-left: 15px;
+}
+.dueDatField{
+    padding-right: 23px;
+}
+
+/* .form{
+    padding-top: 35px;
+} */
+.subjectField{
+    padding-left: 30px;
+}
+
+/* .container{
+    display: flex;
     gap: 25%;
+    padding-top: 50px;
     height: 75%;
 }
-.main{
+ul#list{
+    list-style-type: none;
+}
+
+.main-contact-list{
     padding: 20px;
-    width: 20%;
+    border: 1px solid;
+    width: 30%;
+    margin: 5px 5px;
+    overflow-y: auto;
+}
+.main-contact-list h2{
+    text-align: center;
+}
+.btn{
     margin: 5px 5px;
 }
 .formDetails{
@@ -18,10 +63,7 @@
     max-width: 600px;
     margin: auto;
     margin-top: 50px;
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-top: 20px; */
+    
 }
 input,textarea{
   display: inline-block;
@@ -68,4 +110,4 @@ textarea {
 }
 input[type=date]{
     padding-top: 10px;
-}
+} */
