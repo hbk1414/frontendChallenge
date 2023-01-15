@@ -17,6 +17,8 @@ interface Activity {
   notes: string;
 }
 
+declare var window: any
+
 @Component({
   selector: 'app-activities',
   templateUrl: './activities.component.html',
@@ -24,7 +26,9 @@ interface Activity {
 })
 export default class ActivitiesComponent implements OnInit {
   constructor(private appService: AppService, private fb: FormBuilder) { }
+  formModal: any
   fg!: FormGroup;
+
   @Input() contacts: any[] = [];
   @Input() types: any[] = [];
   @Input() fullName: string = '';
@@ -61,6 +65,13 @@ export default class ActivitiesComponent implements OnInit {
     this.getContacts();
     this.getActivityTypes();
     this.getActivities();
+    this.formModal = new window.bootstrap.window(
+      document.getElementById("exampleModal")
+    )
+  }
+
+  openModal() {
+    this.formModal.show()
   }
 
 

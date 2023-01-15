@@ -27,10 +27,39 @@
                         <div class="form">
                             <form [formGroup]="fg">
                                 <div class="actionBtns d-flex flex-row-reverse mt-5">
-                                    <button class="btn btn-secondary"
-                                        (click)="deleteActivity(activity.id)">Delete</button>
                                     <button class="btn btn-secondary" (click)="saveActivity()">Edit/Save</button>
+                                    <!-- <button class="btn btn-secondary"
+                                        (click)="deleteActivity(activity.id)">Delete</button> -->
+                                    <button type="button" class="btn btn-secondary mt-5" (click)="openModal()"
+                                        data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        Delete
+                                    </button>
 
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title mt-1" id="exampleModalLabel">Delete Activity
+                                                    </h4>
+                                                    <button type="button" class="close" data-bs-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h3>Are you sure you want to delete this activity?</h3>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-danger"
+                                                        (click)="deleteActivity(activity.id)">Delete
+                                                        Activity</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                         </div>
