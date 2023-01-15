@@ -34,8 +34,8 @@ declare var window: any;
 export class ContactDetailsComponent implements OnInit {
 
   formModal: any
-
   router: any;
+
   constructor(private appService: AppService, private fb: FormBuilder, router: Router) { }
   fg!: FormGroup;
   @Input() contacts: Contact[] = [];
