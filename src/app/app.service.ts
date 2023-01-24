@@ -1,10 +1,46 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+
+interface Contact {
+    id?: number;
+    firstName: string;
+    lastName: string;
+    emailAddress: string;
+    address1: string;
+    address2: string;
+    city: string;
+    postCode: string;
+    // phoneNumber: string;
+}
+interface Activites {
+    contact: Contact;
+    title: string;
+    notes: string;
+    dueDate: Date;
+}
+
 @Injectable({
     providedIn: 'root'
 })
 export class AppService {
+
+    public activites: Activites[] = [{
+        contact: {
+            id: 1,
+            firstName: 'Harres',
+            lastName: 'Khan',
+            emailAddress: 'hbk_khan@hotmail.co.uk',
+            address1: '9 tewkesbury road',
+            address2: 'Perry Barr',
+            city: 'Birmingham',
+            postCode: 'B20 3DX',
+        },
+        title: 'asds',
+        notes: 'aqweqeqwe',
+        dueDate: new Date("2022-03-25"),
+
+    }]
 
     constructor(private http: HttpClient) { }
 
