@@ -1,9 +1,7 @@
 .main-contact-list{
     overflow-y: auto;
 }
-.container-fluid{
-    padding: 15px;
-}
+
 ul#list{
     list-style-type: none;
     padding: 3px;
@@ -17,7 +15,22 @@ ul li{
 .btn{
     margin-right: 5px;
 }
-
+.contactListArea{
+    border: 1px solid;
+    padding-top: 10px;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto
+}
+.centre-form{
+    padding-top: 50px;
+}
+.secondColumn{
+    padding-top: 50px;
+}
+.thirdColumn{
+    padding-top: 50px;
+}
 /* 
 .container{
     display: flex;

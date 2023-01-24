@@ -5,15 +5,14 @@ a:hover {
 .row{
     margin-left: 50px;
 }
-  ul#list{
+ul#list{
     list-style-type: none;
+    display: inline;
 }
 a:link {
     text-decoration: none;
     margin: 10px 10px;
+    font-size: larger;
 }
-.button-box{
-text-align:center;
-   display: inline;
-}
+
 

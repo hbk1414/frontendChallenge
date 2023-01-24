@@ -26,6 +26,8 @@ interface Contact {
 
 declare var window: any;
 
+
+
 @Component({
   selector: 'app-contact-details',
   templateUrl: './contact-details.component.html',
@@ -35,6 +37,9 @@ export class ContactDetailsComponent implements OnInit {
 
   formModal: any
   router: any;
+  searchText: any;
+  firstName: string | undefined;
+  lastName: string | undefined;
 
   constructor(private appService: AppService, private fb: FormBuilder, router: Router) { }
   fg!: FormGroup;
@@ -75,6 +80,8 @@ export class ContactDetailsComponent implements OnInit {
     this.formModal = new window.bootstrap.Modal(
       document.getElementById("exampleModal")
     )
+    this.firstName = 'John johnny';
+    this.lastName = 'bing donny';
   }
 
   openModal() {

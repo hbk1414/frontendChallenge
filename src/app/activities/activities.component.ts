@@ -28,6 +28,9 @@ export default class ActivitiesComponent implements OnInit {
   constructor(private appService: AppService, private fb: FormBuilder) { }
   formModal: any
   fg!: FormGroup;
+  @Input() title: string | undefined;
+  @Input() type: string | undefined;
+  @Input() dueDate: string | undefined;
 
   @Input() contacts: any[] = [];
   @Input() types: any[] = [];
@@ -37,9 +40,7 @@ export default class ActivitiesComponent implements OnInit {
   @Input() childItem: any = {};
 
   //get the form field as a form control. it will useful for validation and etc
-  // get contactield(): FormControl {
-  // return this.fg.get('firstName') as FormControl;
-  // }
+
   get contactField(): FormControl {
     return this.fg.get('contactId') as FormControl;
   }
@@ -68,6 +69,10 @@ export default class ActivitiesComponent implements OnInit {
     this.formModal = new window.bootstrap.window(
       document.getElementById("exampleModal")
     )
+    this.title = 'John';
+    this.type = 'Doe';
+    this.dueDate = 'hello'
+
   }
 
   openModal() {
