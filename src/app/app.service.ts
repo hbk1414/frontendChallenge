@@ -82,7 +82,8 @@ export class AppService {
         return this.http.delete(`${this.rootURL}/activities/${id}`);
     }
     getActivities() {
-        return this.http.get(this.rootURL + '/activities');
+        return this.activites
+        // return this.http.get(this.rootURL + '/activities');
     }
     getActivitybyID(id: number | undefined) {
         return this.http.get(`${this.rootURL}/activities/${id}`);

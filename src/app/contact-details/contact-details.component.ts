@@ -80,8 +80,7 @@ export class ContactDetailsComponent implements OnInit {
     this.formModal = new window.bootstrap.Modal(
       document.getElementById("exampleModal")
     )
-    this.firstName = 'John johnny';
-    this.lastName = 'bing donny';
+
   }
 
   openModal() {
@@ -164,5 +163,8 @@ export class ContactDetailsComponent implements OnInit {
     this.contacts = this.contacts.filter(contact => contact.id !== id);
     this.contact = null;
     this.fg.reset();
+  }
+  getActivities() {
+    this.appService.getActivities()
   }
 }
