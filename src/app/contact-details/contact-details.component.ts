@@ -21,7 +21,7 @@ interface Contact {
   address2: string;
   city: string;
   postCode: string;
-  phoneNumber: string;
+
 }
 
 declare var window: any;
@@ -40,8 +40,9 @@ export class ContactDetailsComponent implements OnInit {
   searchText: any;
   firstName: string | undefined;
   lastName: string | undefined;
+  dataApi: any;
 
-  constructor(private appService: AppService, private fb: FormBuilder, router: Router) { }
+  constructor(private appService: AppService, private dataAPI: AppService, private fb: FormBuilder, router: Router) { }
   fg!: FormGroup;
   @Input() contacts: Contact[] = [];
   @Input() contact: any = {};
@@ -70,9 +71,7 @@ export class ContactDetailsComponent implements OnInit {
   get postCodeField(): FormControl {
     return this.fg.get('postCode') as FormControl;
   }
-  get phoneNumberField(): FormControl {
-    return this.fg.get('phoneNumber') as FormControl;
-  }
+
 
   async ngOnInit() {
     this.initForm();
@@ -80,7 +79,7 @@ export class ContactDetailsComponent implements OnInit {
     this.formModal = new window.bootstrap.Modal(
       document.getElementById("exampleModal")
     )
-
+    this.dataApi = this.appService.getActivities()
   }
 
   openModal() {
@@ -119,7 +118,7 @@ export class ContactDetailsComponent implements OnInit {
         address2: this.fg.value.address2,
         city: this.fg.value.city,
         postCode: this.fg.value.postCode,
-        phoneNumber: this.fg.value.phoneNumber,
+
       };
       if (this.contact?.id) {
         this.appService
@@ -138,7 +137,7 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   async getContacts(): Promise<void> {
-    await this.appService
+    this.appService
       .getContacts()
       .subscribe((contacts: any) => (this.contacts = contacts));
   }
@@ -164,7 +163,8 @@ export class ContactDetailsComponent implements OnInit {
     this.contact = null;
     this.fg.reset();
   }
-  getActivities() {
-    this.appService.getActivities()
-  }
+  // getActivities() {
+  //   this.appService.getActivities()
+
+  // }
 }

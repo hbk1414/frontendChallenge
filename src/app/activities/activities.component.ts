@@ -132,7 +132,7 @@ export default class ActivitiesComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['childItem']) {
       this.getContactActivitiesbyContactID(changes['childItem'].currentValue.id)
-      this.getActivity(changes['childItem'].currentValue.id);
+      // this.getActivity(changes['childItem'].currentValue.id);
       this.getContacts();
     }
   }

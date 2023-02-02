@@ -143,7 +143,7 @@
 
             </div>
 
-            <div class="row">
+            <div class="row mt-5">
                 <div class="activtiy-table-content">
                     <div class="row justify-content-centre mt-5">
                         <table class="table table-striped table-fixed">
@@ -155,21 +155,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>{{Activities.title}}</td>
-                                    <td>{{Activities.notes}}</td>
-                                    <td>{{Activites.dueDate}}</td>
+                                <tr *ngFor="let data of dataApi">
+                                    <td>{{data.title}}</td>
+                                    <td>{{data.notes}}</td>
+                                    <td>{{data.dueDate}}</td>
                                 </tr>
+
                             </tbody>
                         </table>
                     </div>
+
                     <!-- <app-activities-table></app-activities-table> -->
                     <!-- <div class="activityForm" *ngIf="contact.id">
                     <app-activities [childItem]="contact"></app-activities>-->
                 </div>
             </div>
         </div>
-
+        <h3>DATA SHOULD BE BELOW HERE</h3>
 
 
     </form>

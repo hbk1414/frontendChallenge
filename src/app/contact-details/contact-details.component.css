@@ -31,6 +31,10 @@ ul li{
 .thirdColumn{
     padding-top: 50px;
 }
+.table{
+    width: 250px;
+    padding-left: 300px;
+}
 /* 
 .container{
     display: flex;

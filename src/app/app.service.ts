@@ -11,7 +11,6 @@ interface Contact {
     address2: string;
     city: string;
     postCode: string;
-    // phoneNumber: string;
 }
 interface Activites {
     contact: Contact;
@@ -36,11 +35,12 @@ export class AppService {
             city: 'Birmingham',
             postCode: 'B20 3DX',
         },
-        title: 'asds',
-        notes: 'aqweqeqwe',
+        title: 'hey hey data has arrived',
+        notes: 'new data is here',
         dueDate: new Date("2022-03-25"),
 
     }]
+
 
     constructor(private http: HttpClient) { }
 
@@ -82,8 +82,8 @@ export class AppService {
         return this.http.delete(`${this.rootURL}/activities/${id}`);
     }
     getActivities() {
-        return this.activites
-        // return this.http.get(this.rootURL + '/activities');
+        // return this.activites
+        return this.http.get(this.rootURL + '/activities');
     }
     getActivitybyID(id: number | undefined) {
         return this.http.get(`${this.rootURL}/activities/${id}`);
