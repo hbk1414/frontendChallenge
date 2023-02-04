@@ -35,6 +35,9 @@ ul li{
     width: 250px;
     padding-left: 300px;
 }
+.help-block{
+    color: red;
+}
 /* 
 .container{
     display: flex;

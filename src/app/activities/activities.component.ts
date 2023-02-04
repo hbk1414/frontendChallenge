@@ -69,9 +69,6 @@ export default class ActivitiesComponent implements OnInit {
     this.formModal = new window.bootstrap.window(
       document.getElementById("exampleModal")
     )
-    this.title = 'John';
-    this.type = 'Doe';
-    this.dueDate = 'hello'
 
   }
 
@@ -94,8 +91,8 @@ export default class ActivitiesComponent implements OnInit {
   saveActivity(): void {
     console.log(this.fg);
     console.log(this.activity);
+    console.log("meant to be saving");
 
-    //if form don't have any validation error this if condition will executed
     if (this.fg.valid) {
 
       const newActivity: Activity = {

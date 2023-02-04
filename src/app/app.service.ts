@@ -58,7 +58,6 @@ export class AppService {
         return this.http.post(this.rootURL + '/contacts', contact);
     }
 
-
     editContacts(id: string, contact: any) {
         return this.http.put(`${this.rootURL}/contacts/${id}`, contact);
     }
