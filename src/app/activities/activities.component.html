@@ -27,14 +27,14 @@
                         <div class="form">
                             <form [formGroup]="fg">
                                 <div class="actionBtns d-flex flex-row-reverse mt-5">
-                                    <button class="btn btn-secondary" (click)="saveActivity()">Edit/Save</button>
-                                    <!-- <button class="btn btn-secondary"
-                                        (click)="deleteActivity(activity.id)">Delete</button> -->
+                                    <button class="btn btn-secondary mt-5" (click)="saveActivity()">Edit/Save</button>
                                     <button type="button" class="btn btn-secondary mt-5" (click)="openModal()"
                                         data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         Delete
                                     </button>
 
+                                    <!-- <button class="btn btn-secondary"
+                                        (click)="deleteActivity(activity.id)">Delete</button> -->
                                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -64,6 +64,7 @@
                             </form>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col">
                             <div class="contactFields">

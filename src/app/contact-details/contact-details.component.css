@@ -38,52 +38,7 @@ ul li{
 .help-block{
     color: red;
 }
-/* 
-.container{
-    display: flex;
-    border: 1px solid; 
-    border-color: aqua;
-    gap: 25%;
-    height: 75%;
-    width: auto;
+.activtiy-table-content{
+    padding-left: 50%;
+    margin-top: 25px;
 }
-
-.btn{
-    margin: 5px 5px;
-}
-
-.main-contact-list h2{
-    text-align: center;
-}
-.form{
-    padding-top: 20px;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-.activityForm{
-    padding-top: 280px;
-}
-
-.actionBtns{
-    display: flex;
-    justify-content: flex-end;
-    padding-bottom: 10px;
-}
-.divider{
-    width:5px;
-    height:auto;
-    display:inline-block;
-}
-.row-object{
-    width: 150px;
-    padding: 15px 5px;
-    height: 100px;
-}
-.row-object input{
-    padding-bottom: 10px;
-}
-.col input{
-    width: 250px;
-    padding: 5px 5px;
-} */

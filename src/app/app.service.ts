@@ -24,22 +24,22 @@ interface Activites {
 })
 export class AppService {
 
-    public activites: Activites[] = [{
-        contact: {
-            id: 1,
-            firstName: 'Harres',
-            lastName: 'Khan',
-            emailAddress: 'hbk_khan@hotmail.co.uk',
-            address1: '9 tewkesbury road',
-            address2: 'Perry Barr',
-            city: 'Birmingham',
-            postCode: 'B20 3DX',
-        },
-        title: 'hey hey data has arrived',
-        notes: 'new data is here',
-        dueDate: new Date("2022-03-25"),
+    // public activites: Activites[] = [{
+    //     contact: {
+    //         id: 1,
+    //         firstName: 'Harres',
+    //         lastName: 'Khan',
+    //         emailAddress: 'hbk_khan@hotmail.co.uk',
+    //         address1: '9 tewkesbury road',
+    //         address2: 'Perry Barr',
+    //         city: 'Birmingham',
+    //         postCode: 'B20 3DX',
+    //     },
+    //     title: 'hey hey data has arrived',
+    //     notes: 'new data is here',
+    //     dueDate: new Date("2022-03-25"),
 
-    }]
+    // }]
 
 
     constructor(private http: HttpClient) { }
@@ -81,7 +81,6 @@ export class AppService {
         return this.http.delete(`${this.rootURL}/activities/${id}`);
     }
     getActivities() {
-        // return this.activites
         return this.http.get(this.rootURL + '/activities');
     }
     getActivitybyID(id: number | undefined) {

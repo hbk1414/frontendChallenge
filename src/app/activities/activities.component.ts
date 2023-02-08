@@ -89,9 +89,10 @@ export default class ActivitiesComponent implements OnInit {
     });
   }
   saveActivity(): void {
+    console.log('saving activity');
+
     console.log(this.fg);
     console.log(this.activity);
-    console.log("meant to be saving");
 
     if (this.fg.valid) {
 
@@ -108,13 +109,13 @@ export default class ActivitiesComponent implements OnInit {
           .subscribe((activity: any) => {
             this.activities = this.activities.filter(activity => activity.id !== this.activity.id);
             this.activities.push(activity);
-          });
+          }); console.log("already exists");
       } else {
         this.appService
           .addActivity(newActivity)
 
           .subscribe((activity: any) => this.activities.push(activity));
-      }
+      } console.log('added new activity')
       this.fg.reset(); //resetting the form array
     } else {
       console.log('this is invalid ');
