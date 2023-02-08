@@ -17,7 +17,7 @@ interface Activity {
   notes: string;
 }
 
-declare var window: any
+declare var window: any;
 
 @Component({
   selector: 'app-activities',
@@ -25,8 +25,7 @@ declare var window: any
   styleUrls: ['./activities.component.css'],
 })
 export default class ActivitiesComponent implements OnInit {
-  constructor(private appService: AppService, private fb: FormBuilder) { }
-  formModal: any
+  formModal: any;
   fg!: FormGroup;
   @Input() title: string | undefined;
   @Input() type: string | undefined;
@@ -38,6 +37,30 @@ export default class ActivitiesComponent implements OnInit {
   @Input() activities: any[] = [];
   @Input() activity: any = {};
   @Input() childItem: any = {};
+
+  constructor(private appService: AppService, private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.initForm();
+    this.getContacts();
+    this.getActivityTypes();
+    this.getActivities();
+    // this.formModal = new window.bootstrap.window(
+    //   document.getElementById('exampleModal')
+    // );
+  }
+
+  initForm(): void {
+    let id = Date.now() * Math.random();
+    this.fg = this.fb.group({
+      id: [id],
+      contactId: ['', [Validators.required]],
+      activityTypeId: ['', [Validators.required]],
+      dueDate: ['', [Validators.required]],
+      title: ['', [Validators.required]],
+      notes: ['', [Validators.required]],
+    });
+  }
 
   //get the form field as a form control. it will useful for validation and etc
 
@@ -61,40 +84,16 @@ export default class ActivitiesComponent implements OnInit {
     return this.fg.get('notes') as FormControl;
   }
 
-  ngOnInit(): void {
-    this.initForm();
-    this.getContacts();
-    this.getActivityTypes();
-    this.getActivities();
-    this.formModal = new window.bootstrap.window(
-      document.getElementById("exampleModal")
-    )
-
-  }
-
   openModal() {
-    this.formModal.show()
+    this.formModal.show();
   }
 
-
-  initForm(): void {
-    let id = Date.now() * Math.random();
-    this.fg = this.fb.group({
-      id: [id],
-      contactId: ['', [Validators.required]],
-      activityTypeId: ['', [Validators.required]],
-      dueDate: ['', [Validators.required]],
-      title: ['', [Validators.required]],
-      notes: ['', [Validators.required]],
-    });
-  }
   saveActivity(): void {
     console.log(this.fg);
     console.log(this.activity);
-    console.log("meant to be saving");
+    console.log('meant to be saving');
 
     if (this.fg.valid) {
-
       const newActivity: Activity = {
         contactId: this.fg.value.contactId,
         activityTypeId: this.fg.value.activityTypeId,
@@ -106,7 +105,9 @@ export default class ActivitiesComponent implements OnInit {
         this.appService
           .editActivity(this.activity.id, newActivity)
           .subscribe((activity: any) => {
-            this.activities = this.activities.filter(activity => activity.id !== this.activity.id);
+            this.activities = this.activities.filter(
+              (activity) => activity.id !== this.activity.id
+            );
             this.activities.push(activity);
           });
       } else {
@@ -128,7 +129,9 @@ export default class ActivitiesComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['childItem']) {
-      this.getContactActivitiesbyContactID(changes['childItem'].currentValue.id)
+      this.getContactActivitiesbyContactID(
+        changes['childItem'].currentValue.id
+      );
       // this.getActivity(changes['childItem'].currentValue.id);
       this.getContacts();
     }
@@ -138,9 +141,10 @@ export default class ActivitiesComponent implements OnInit {
     if (this.childItem.id) {
       this.getContactActivitiesbyContactID(this.childItem.id);
     }
-    this.appService
-      .getActivities()
-      .subscribe((activities: any) => (this.activities = activities));
+    this.appService.getActivities().subscribe((activities: any) => {
+      this.activities = activities;
+      console.log('activities', this.activities);
+    });
   }
   getContactActivitiesbyContactID(id: number | undefined) {
     this.appService
@@ -154,7 +158,7 @@ export default class ActivitiesComponent implements OnInit {
   }
   deleteActivity(id: number | undefined) {
     this.appService.deleteActivity(id).subscribe();
-    this.activities = this.activities.filter(activity => activity.id !== id);
+    this.activities = this.activities.filter((activity) => activity.id !== id);
     this.activity = null;
     this.fg.reset();
   }
