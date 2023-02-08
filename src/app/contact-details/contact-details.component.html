@@ -1,144 +1,221 @@
 <div class="container-fluid text-center">
-    <form [formGroup]="fg">
+  <form [formGroup]="fg">
+    <div class="row mt-5 ml-5">
+      <div class="col-3 ml-5">
+        <div class="input-group mb-3 mt-5">
+          <!-- <input type="text" class="form-control" id="search-text" placeholder="Search" aria-label="Username"
+                        aria-describedby="basic-addon1" [(ngModel)]="searchText"> -->
+        </div>
+        <div class="contactListArea">
+          <h2>Contacts</h2>
+          <ul id="list">
+            <li *ngFor="let contact of contacts">
+              <button
+                class="btn btn-primary"
+                type="button"
+                (click)="getContact(contact.id)"
+              >
+                <span class="name"
+                  >{{ contact.firstName }} {{ contact.lastName }}
+                </span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
 
-        <div class="row mt-5 ml-5">
-            <div class="col-3 ml-5">
-                <div class="input-group mb-3 mt-5">
-                    <input type="text" class="form-control" id="search-text" placeholder="Search" aria-label="Username"
-                        aria-describedby="basic-addon1" [(ngModel)]="searchText">
-                </div>
-                <div class="contactListArea">
-                    <h2>Contacts</h2>
-                    <ul id="list">
-                        <li *ngFor="let contact of contacts;">
-                            <button class="btn btn-primary" type="button" (click)="getContact(contact.id)">
-                                <span class="name">{{contact.firstName}} {{contact.lastName}} </span>
-                            </button>
-                        </li>
-                    </ul>
-                </div>
+      <div class="col-3">
+        <div class="centre-form">
+          <div class="row">
+            <div class="main-contact-list">
+              <div class="form-group mb-3 mr-5 mt-5">
+                <label class="mb-1">First Name</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="contact.firstName"
+                  name="Name"
+                  formControlName="firstName"
+                  placeholder="Enter First Name"
+                />
+                <span
+                  class="help-block"
+                  *ngIf="
+                    fg.get('firstName')?.errors && fg.get('firstName')?.touched
+                  "
+                >
+                  Your Name must have Upper Case starting letter and 3
+                  characters.
+                </span>
+              </div>
+
+              <div class="form-group mb-3">
+                <label class="mb-1" for="exampleInputEmail"
+                  >Email address</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="contact.emailAddress"
+                  name="emailAddress"
+                  formControlName="emailAddress"
+                  placeholder="Enter Email Address"
+                />
+              </div>
+
+              <div class="form-group mb-3">
+                <label class="mb-1" for="exampleInputPassword1"
+                  >Address 1</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="contact.address1"
+                  name="address1"
+                  formControlName="address1"
+                  placeholder="Enter Address1"
+                />
+              </div>
+
+              <div class="form-group mb-3">
+                <label class="mb-1" for="exampleInputPassword1"
+                  >Address 2</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="contact.address2"
+                  name="address2"
+                  formControlName="address2"
+                  placeholder="Enter Address2"
+                />
+                <span
+                  class="help-block"
+                  *ngIf="
+                    fg.get('address2')?.errors && fg.get('address2')?.touched
+                  "
+                >
+                  Please Enter a Valid Value
+                </span>
+              </div>
+
+              <div class="form-group mb-3">
+                <label class="mb-1" for="exampleInputPassword1">City</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="contact.city"
+                  name="city"
+                  formControlName="city"
+                  placeholder="Enter City"
+                />
+              </div>
+
+              <div class="form-group mb-3">
+                <label class="mb-1" for="exampleInputPassword1"
+                  >Post Code</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="contact.postCode"
+                  name="postCode"
+                  formControlName="postCode"
+                  placeholder="Enter Post Code"
+                />
+                <span
+                  class="help-block"
+                  *ngIf="
+                    fg.get('postCode')?.errors && fg.get('postCode')?.touched
+                  "
+                >
+                  Please Enter a valid post code in Uppercase characters
+                </span>
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
 
-
-            <div class="col-3">
-                <div class="centre-form">
-                    <div class="row">
-                        <div class="main-contact-list">
-                            <div class="form-group mb-3 mr-5 mt-5">
-                                <label class="mb-1">First Name</label>
-                                <input class="form-control" type="text" class="form-control"
-                                    [(ngModel)]="contact.firstName" name="Name" formControlName="firstName"
-                                    placeholder="Enter First Name">
-                                <span class="help-block"
-                                    *ngIf="fg.get('firstName')?.errors && fg.get('firstName')?.touched">
-                                    Your Name must have Upper Case starting letter and 3 characters. </span>
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label class="mb-1" for="exampleInputEmail">Email address</label>
-                                <input class="form-control" type="text" class="form-control"
-                                    [(ngModel)]="contact.emailAddress" name="emailAddress"
-                                    formControlName="emailAddress" placeholder="Enter Email Address">
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label class="mb-1" for="exampleInputPassword1">Address 1</label>
-                                <input class="form-control" type="text" class="form-control"
-                                    [(ngModel)]="contact.address1" name="address1" formControlName="address1"
-                                    placeholder="Enter Address1">
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label class="mb-1" for="exampleInputPassword1">Address 2</label>
-                                <input class="form-control" type="text" class="form-control"
-                                    [(ngModel)]="contact.address2" name="address2" formControlName="address2"
-                                    placeholder="Enter Address2">
-                                <span class="help-block"
-                                    *ngIf="fg.get('address2')?.errors && fg.get('address2')?.touched">
-                                    Please Enter a Valid Value
-                                </span>
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label class="mb-1" for="exampleInputPassword1">City</label>
-                                <input class="form-control" type="text" class="form-control" [(ngModel)]="contact.city"
-                                    name="city" formControlName="city" placeholder="Enter City">
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label class="mb-1" for="exampleInputPassword1">Post Code</label>
-                                <input class="form-control" type="text" class="form-control"
-                                    [(ngModel)]="contact.postCode" name="postCode" formControlName="postCode"
-                                    placeholder="Enter Post Code">
-                                <span class="help-block"
-                                    *ngIf="fg.get('postCode')?.errors && fg.get('postCode')?.touched">
-                                    Please Enter a valid post code in Uppercase characters
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+      <div class="col-3">
+        <div class="secondColumn">
+          <div class="row">
+            <div class="form-group">
+              <label class="form-group mb-1 mt-5">Last Name</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="contact.lastName"
+                name="lastName"
+                formControlName="lastName"
+                placeholder="Enter Last Name"
+              />
+              <span
+                class="help-block"
+                *ngIf="
+                  fg.get('lastName')?.errors && fg.get('lastName')?.touched
+                "
+              >
+                Your Last Name must have Upper Case starting letter and 3
+                characters with no white spaces
+              </span>
             </div>
-
-            <div class="col-3">
-                <div class="secondColumn">
-                    <div class="row">
-                        <div class="form-group">
-                            <label class="form-group mb-1 mt-5">Last Name</label>
-                            <input type="text" class="form-control" [(ngModel)]="contact.lastName" name="lastName"
-                                formControlName="lastName" placeholder="Enter Last Name">
-                            <span class="help-block" *ngIf="fg.get('lastName')?.errors && fg.get('lastName')?.touched">
-                                Your Last Name must have Upper Case starting letter and 3 characters with no white
-                                spaces
-                            </span>
-                        </div>
-                        <!-- <div class="form-group mb-3">
+            <!-- <div class="form-group mb-3">
                             <label class="form-group mb-1 mt-3">Phone Number</label>
                             <input type="text" class="form-control" [(ngModel)]="contact.phoneNumber" name="phoneNumber"
                                 formControlName="phoneNumber" placeholder="Enter Phone Number">
                         </div> -->
-                    </div>
-                </div>
+          </div>
+        </div>
+      </div>
 
-            </div>
-
-            <div class="col-2">
-                <div class="thirdColumn">
-                    <div class="row">
-                        <div class="actionBtns">
-                            <button class="btn btn-secondary mt-5" (click)="saveContact()">Edit/Save</button>
-                            <button type="button" class="btn btn-secondary mt-5" (click)="openModal()"
-                                data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Delete
-                            </button>
-                            <!-- <button class="btn btn-danger mt-5" (click)="deleteContact(contact.id) ">Delete</button> -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title mt-1" id="exampleModalLabel">Delete Contact</h4>
-                                            <button type="button" class="close" data-bs-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <h3>Are you sure you want to delete this contact?</h3>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-danger"
-                                                (click)="deleteContact(contact.id)">Delete
-                                                Contact</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+      <div class="col-2">
+        <div class="thirdColumn">
+          <div class="row">
+            <div class="actionBtns">
+              <button class="btn btn-secondary mt-5" (click)="saveContact()">
+                Edit/Save
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary mt-5"
+                (click)="openModal()"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+              >
+                Delete
+              </button>
+              <!-- <button class="btn btn-danger mt-5" (click)="deleteContact(contact.id) ">Delete</button> -->
+              <div
+                class="modal fade"
+                id="exampleModal"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title mt-1" id="exampleModalLabel">
+                        Delete Contact
+                      </h4>
+                      <button
+                        type="button"
+                        class="close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
                     </div>
+<<<<<<< HEAD
                 </div>
 
             </div>
@@ -163,14 +240,61 @@
 
                             </tbody> -->
                         </table>
+=======
+                    <div class="modal-body">
+                      <h3>Are you sure you want to delete this contact?</h3>
+>>>>>>> 84d0b5b20e8eee27ffb303990cf4a2c51059fd65
                     </div>
-
-                    <!-- <app-activities-table></app-activities-table> -->
-                    <!-- <div class="activityForm" *ngIf="contact.id">
-                    <app-activities [childItem]="contact"></app-activities>-->
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-danger"
+                        (click)="deleteContact(contact.id)"
+                      >
+                        Delete Contact
+                      </button>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
 
+      <div class="row mt-5">
+        <div class="activtiy-table-content">
+          <div class="row justify-content-centre mt-5">
+            <table class="table table-striped table-fixed">
+              <thead>
+                <tr>
+                  <th scope="col">Title</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Due Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <tr *ngFor="let data of dataApi">
+                  <td>{{ data.title }}</td>
+                  <td>{{ data.notes }}</td>
+                  <td>{{ data.dueDate }}</td>
+                </tr> -->
+              </tbody>
+            </table>
+          </div>
 
-    </form>
+          <!-- <app-activities-table></app-activities-table> -->
+          <!-- <div class="activityForm" *ngIf="contact.id">
+                    <app-activities [childItem]="contact"></app-activities>-->
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
