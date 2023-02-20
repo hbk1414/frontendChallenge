@@ -82,6 +82,7 @@ export class AppService {
     }
     getActivities() {
         return this.http.get(this.rootURL + '/activities');
+
     }
     getActivitybyID(id: number | undefined) {
         return this.http.get(`${this.rootURL}/activities/${id}`);

@@ -35,17 +35,12 @@ export class ContactDetailsComponent implements OnInit {
   searchText: any;
   firstName: string | undefined;
   lastName: string | undefined;
-  dataApi: any;
+  activities: any;
   fg!: FormGroup;
   @Input() contacts: Contact[] = [];
   @Input() contact: any = {};
 
-  constructor(
-    private appService: AppService,
-    private dataAPI: AppService,
-    private fb: FormBuilder,
-    router: Router
-  ) {}
+  constructor(private appService: AppService, private dataAPI: AppService, private fb: FormBuilder, router: Router) { }
 
   async ngOnInit() {
     this.initForm();
@@ -53,7 +48,7 @@ export class ContactDetailsComponent implements OnInit {
     this.formModal = new window.bootstrap.Modal(
       document.getElementById('exampleModal')
     );
-    this.dataApi = this.appService.getActivities();
+    // this.dataApi = this.appService.getActivities();
   }
 
   //form init. here we create the reactive form. https://angular.io/guide/reactive-forms
@@ -147,10 +142,13 @@ export class ContactDetailsComponent implements OnInit {
     this.fg.patchValue(data);
   }
 
-  getContact(id: number | undefined) {
+  async getContact(id: number | undefined) {
     this.appService
       .get(id)
       .subscribe((contact: any) => (this.contact = contact));
+    this.activities = await this.appService.getActivitybyID(id).toPromise()
+    // console.log("get activtives should be here", await this.appService.getActivities().toPromise());
+
   }
 
   selectContact(contact: Contact) {
@@ -163,8 +161,8 @@ export class ContactDetailsComponent implements OnInit {
     this.contact = null;
     this.fg.reset();
   }
-  // getActivities() {
-  //   this.appService.getActivities()
+  getActivities() {
+    // this.appService.getActivities()
 
-  // }
+  }
 }

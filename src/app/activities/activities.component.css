@@ -31,6 +31,13 @@
 .subjectField{
     padding-left: 30px;
 }
+ul#list{
+    list-style-type: none;
+    padding: 3px;
+}
+ul li{
+    padding: 3px;
+}
 
 /* .container{
     display: flex;

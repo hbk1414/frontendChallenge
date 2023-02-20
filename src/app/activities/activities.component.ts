@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Directive, Input, OnInit, SimpleChanges } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -27,6 +27,7 @@ declare var window: any;
 export default class ActivitiesComponent implements OnInit {
   formModal: any;
   fg!: FormGroup;
+
   @Input() title: string | undefined;
   @Input() type: string | undefined;
   @Input() dueDate: string | undefined;
@@ -38,7 +39,7 @@ export default class ActivitiesComponent implements OnInit {
   @Input() activity: any = {};
   @Input() childItem: any = {};
 
-  constructor(private appService: AppService, private fb: FormBuilder) {}
+  constructor(private appService: AppService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.initForm();
