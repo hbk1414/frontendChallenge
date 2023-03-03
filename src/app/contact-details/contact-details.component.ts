@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { lastValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 import { nameValidator } from '../../app/validator/nameValidator';
 import { postCodeValidator } from '../../app/validator/postCodeValidator';
@@ -37,10 +38,11 @@ export class ContactDetailsComponent implements OnInit {
   lastName: string | undefined;
   activities: any;
   fg!: FormGroup;
+  contactDisplay: Contact[] = [];
   @Input() contacts: Contact[] = [];
   @Input() contact: any = {};
 
-  constructor(private appService: AppService, private dataAPI: AppService, private fb: FormBuilder, router: Router) { }
+  constructor(private appService: AppService, private fb: FormBuilder) {}
 
   async ngOnInit() {
     this.initForm();
@@ -48,7 +50,6 @@ export class ContactDetailsComponent implements OnInit {
     this.formModal = new window.bootstrap.Modal(
       document.getElementById('exampleModal')
     );
-    // this.dataApi = this.appService.getActivities();
   }
 
   //form init. here we create the reactive form. https://angular.io/guide/reactive-forms
@@ -64,6 +65,14 @@ export class ContactDetailsComponent implements OnInit {
       city: ['', [Validators.required]],
       postCode: ['', [Validators.required, postCodeValidator()]],
     });
+  }
+
+  onChange(val: Event) {
+    const name = (val.target as HTMLInputElement).value;
+    this.contactDisplay = this.contacts.filter((contact) => {
+      return contact.firstName.toLowerCase().startsWith(name.toLowerCase());
+    });
+    console.log('search', this.contactDisplay);
   }
 
   //get the form field as a form control. it will useful for validation and etc
@@ -132,9 +141,10 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   async getContacts(): Promise<void> {
-    this.appService
-      .getContacts()
-      .subscribe((contacts: any) => (this.contacts = contacts));
+    this.contacts = (await lastValueFrom(
+      this.appService.getContacts()
+    )) as Contact[];
+    this.contactDisplay = this.contacts;
   }
 
   edit(id: number): void {
@@ -143,16 +153,10 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   async getContact(id: number | undefined) {
-    this.appService
-      .get(id)
-      .subscribe((contact: any) => (this.contact = contact));
-    this.activities = await this.appService.getActivitybyID(id).toPromise()
-    // console.log("get activtives should be here", await this.appService.getActivities().toPromise());
-
-  }
-
-  selectContact(contact: Contact) {
-    this.contact = contact;
+    this.contact = await lastValueFrom(this.appService.get(id));
+    this.activities = await lastValueFrom(
+      this.appService.getContactActivitiesbyContactID(id)
+    );
   }
 
   deleteContact(id: number | undefined) {
@@ -160,9 +164,5 @@ export class ContactDetailsComponent implements OnInit {
     this.contacts = this.contacts.filter((contact) => contact.id !== id);
     this.contact = null;
     this.fg.reset();
-  }
-  getActivities() {
-    // this.appService.getActivities()
-
   }
 }
