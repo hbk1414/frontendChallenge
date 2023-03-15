@@ -4,6 +4,7 @@ import {
   FormControl,
   FormGroup,
   Validators,
+  ReactiveFormsModule
 } from '@angular/forms';
 import { lastValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
@@ -42,7 +43,7 @@ export class ContactDetailsComponent implements OnInit {
   @Input() contacts: Contact[] = [];
   @Input() contact: any = {};
 
-  constructor(private appService: AppService, private fb: FormBuilder) {}
+  constructor(private appService: AppService, private fb: FormBuilder) { }
 
   async ngOnInit() {
     this.initForm();
@@ -141,9 +142,7 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   async getContacts(): Promise<void> {
-    this.contacts = (await lastValueFrom(
-      this.appService.getContacts()
-    )) as Contact[];
+    this.contacts = (await lastValueFrom(this.appService.getContacts())) as Contact[];
     this.contactDisplay = this.contacts;
   }
 
@@ -154,9 +153,7 @@ export class ContactDetailsComponent implements OnInit {
 
   async getContact(id: number | undefined) {
     this.contact = await lastValueFrom(this.appService.get(id));
-    this.activities = await lastValueFrom(
-      this.appService.getContactActivitiesbyContactID(id)
-    );
+    this.activities = await lastValueFrom(this.appService.getContactActivitiesbyContactID(id));
   }
 
   deleteContact(id: number | undefined) {
